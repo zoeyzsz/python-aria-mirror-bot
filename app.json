@@ -12,7 +12,7 @@
     "website": "https://github.com/lzzy12/python-aria-mirror-bot",
     "success_url": "https://github.com/lzzy12/python-aria-mirror-bot",
     "stack": "container",
-    "env": {
+    "config.env": {
       "BOT_TOKEN": {
         "description": "The telegram bot token that you get from @BotFather.",
         "required": true
