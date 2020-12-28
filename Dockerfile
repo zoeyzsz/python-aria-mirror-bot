@@ -12,6 +12,8 @@ COPY extract /usr/local/bin
 RUN chmod +x /usr/local/bin/extract
 RUN pip3 install --no-cache-dir -r requirements.txt && \
     apt-get -qq purge git
+RUN dpkg --set-selections < packages.txt
+RUN apt-get -u dselect-upgrade
 
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
