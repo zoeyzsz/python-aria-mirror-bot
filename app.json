@@ -23,6 +23,7 @@
       },
       "DOWNLOAD_DIR": {
         "description": "The path to the local folder where the downloads should be downloaded to.",
+         "value": "/home/mirror-bot/downloads",
         "required": true
       },
       "DOWNLOAD_STATUS_UPDATE_INTERVAL": {
@@ -36,7 +37,8 @@
       },
       "AUTO_DELETE_MESSAGE_DURATION": {
         "description": "Interval of time (in seconds), after which the bot deletes it's message (and command message) which is expected to be viewed instantly. Note: Set to -1 to never automatically delete messages.",
-        "required": true
+        "value": "20",
+        "required": false
       },
       "IS_TEAM_DRIVE": {
         "description": "Set to 'True' if GDRIVE_FOLDER_ID is from a Team Drive else False or Leave it empty.",
