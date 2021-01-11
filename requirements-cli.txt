@@ -16,7 +16,7 @@ liberror-perl
 libxmuu1
 openssh-client
 xauth 
-installpython3-pip
+python3-pip
 python
 python3
 curl
