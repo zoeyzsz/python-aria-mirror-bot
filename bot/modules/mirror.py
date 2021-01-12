@@ -136,7 +136,7 @@ class MirrorListener(listeners.MirrorListeners):
 
     def onUploadComplete(self, link: str):
         with download_dict_lock:
-            msg = f'<a href="{link}">{download_dict[self.uid].name()}</a> ({download_dict[self.uid].size()})'
+            msg = f'<b>📁 File Name : </b><code>{download_dict[self.uid].name()}</code>\n<b>📥 Size : </b><code>{download_dict[self.uid].size()}</code>'
             LOGGER.info(f'Done Uploading {download_dict[self.uid].name()}')
             if INDEX_URL is not None:
                 share_url = requests.utils.requote_uri(f'{INDEX_URL}/{download_dict[self.uid].name()}')
@@ -145,6 +145,12 @@ class MirrorListener(listeners.MirrorListeners):
                 msg += f'\n\n Shareable link: <a href="{share_url}">here</a>'
             if self.tag is not None:
                 msg += f'\ncc: @{self.tag}'
+            if self.message.from_user.username:
+                uname = f"@{self.message.from_user.username}"
+            else:
+                uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
+            if uname is not None:
+                msg += f'\n\n🤠Mirror : {uname}'
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
