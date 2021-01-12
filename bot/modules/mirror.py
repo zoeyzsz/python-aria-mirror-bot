@@ -142,7 +142,7 @@ class MirrorListener(listeners.MirrorListeners):
                 share_url = requests.utils.requote_uri(f'{INDEX_URL}/{download_dict[self.uid].name()}')
                 if os.path.isdir(f'{DOWNLOAD_DIR}/{self.uid}/{download_dict[self.uid].name()}'):
                     share_url += '/'
-                msg += f'\n\n🔗 <b>Shareable Link</b> :- <a href="{share_url}">Here</a>'
+                msg += f'\n\n<b>🔗 Shareable Link :-</b> <a href="{share_url}">Here</a>'
             if self.tag is not None:
                 msg += f'\ncc: @{self.tag}'
             if self.message.from_user.username:
@@ -150,7 +150,7 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-                msg += f'\n\n🔺 Uploaded :- {uname} 👤 '
+                msg += f'\n\n<b>🔺 Uploaded :-</b> {uname} 👤 '
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
