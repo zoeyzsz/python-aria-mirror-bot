@@ -136,18 +136,15 @@ class MirrorListener(listeners.MirrorListeners):
 
     def onUploadComplete(self, link: str):
         with download_dict_lock:
-            msg = f'<b>🗂 File Name : <a href="{link}">{download_dict[self.uid].name()}</a></b>\n<b>📥 Total Size : {download_dict[self.uid].size()}</b>'
+            msg = f'<b>🗂 File Name : <a href="{link}">{download_dict[self.uid].name()}</a></b>\n <b>📥 Total Size : {download_dict[self.uid].size()}</b>'
+            LOGGER.info(f'Done Uploading {download_dict[self.uid].name()}')
             if INDEX_URL is not None:
                 share_url = requests.utils.requote_uri(f'{INDEX_URL}/{download_dict[self.uid].name()}')
                 if os.path.isdir(f'{DOWNLOAD_DIR}/{self.uid}/{download_dict[self.uid].name()}'):
                     share_url += '/'
-                msg += f'\n\n <b>🔗 Shareable Link :- ⚡️ <a href="{share_url}">Index Link</a> ⚡️<b>'
-            if self.message.from_user.username:
-                uname = f"@{self.message.from_user.username}"
-            else:
-                uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
-            if uname is not None:
-                msg += f'\n\n<b>👤 Uploader :- {uname}</b>'
+                msg += f'\n\n🔗 Shareable Link : <a href="{share_url}">Here</a>'
+            if self.tag is not None:
+                msg += f'\n👤 Uploader :- @{self.tag}'
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
