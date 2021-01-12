@@ -93,12 +93,12 @@ def get_readable_message():
     with download_dict_lock:
         msg = ""
         for download in list(download_dict.values()):
-            msg += f"<b>📁 File Name :</b> <code>{download.name()}</code>\n"
-            msg += f"<b>🌀 Status :</b> {download.status()}\n"
+            msg += f"<b>📁 File Name :</b> <code>{download.name()}</code>"
+            msg += f"\n<b>🌀 Status :</b> {download.status()}"
             if download.status() != MirrorStatus.STATUS_ARCHIVING and download.status() != MirrorStatus.STATUS_EXTRACTING:
-            msg += f"<code>🔥 Processing : {get_progress_bar_string(download)} {download.progress()} 🔥</code>\n" \
-                f"\n<b>🔻 Downloaded :</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}" \
-                f"\n<b>⚡️ Speed :</b> {download.speed()}, \n<b>⏳ ETA :</b> {download.eta()} "
+                msg += f"\n<code>{get_progress_bar_string(download)} {download.progress()}</code>" \
+                       f"\n<b>🔻 Downloaded :</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}" \
+                       f"\n<b>⚡️ Speed :</b> {download.speed()}, \n<b>⏳ ETA :</b> {download.eta()} "
             if download.status() == MirrorStatus.STATUS_DOWNLOADING:
                 if hasattr(download, 'is_torrent'):
                     msg += f"\n<b>🔍 Tracker :- 🧲 Seeders :</b> {download.aria_download().num_seeders}" \
