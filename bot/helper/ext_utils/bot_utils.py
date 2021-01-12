@@ -3,13 +3,8 @@ import re
 import threading
 import time
 
-from os import execl, path, remove
-from sys import executable
-
 from bot import download_dict, download_dict_lock
 from bot.helper.telegram_helper.bot_commands import BotCommands
-from telegram.ext import CommandHandler, run_async
-from bot import dispatcher, updater, botStartTime
 
 LOGGER = logging.getLogger(__name__)
 
@@ -106,10 +101,10 @@ def get_readable_message():
                        f"\n<b>⚡️ Speed :</b> {download.speed()}, \n<b>⏳ ETA :</b> {download.eta()} "
             if download.status() == MirrorStatus.STATUS_DOWNLOADING:
                 if hasattr(download, 'is_torrent'):
-                    msg += f"\n<b>🔍 Tracker :- 🧲 Seeders :</b> {download.aria_download().num_seeders}" \
+                    msg += f"\n<b>🔍 Tracker :- \n🧲 Seeders :</b> {download.aria_download().num_seeders}" \
                         f" & <b>🧲 Peers :</b> {download.aria_download().connections}"
-                msg += f"\nGID :  <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
-                msg += f"\n<b>🔍 Usage :-\n🖥️ CPU : {cpuUsage}% \n🎛️ RAM : {memory}% \n🗃️ : {disk}%"
+                msg += f"\nGID : <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+            msg += "\n\n"
         return msg
 
 
