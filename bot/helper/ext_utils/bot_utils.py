@@ -3,8 +3,13 @@ import re
 import threading
 import time
 
+from os import execl, path, remove
+from sys import executable
+
 from bot import download_dict, download_dict_lock
 from bot.helper.telegram_helper.bot_commands import BotCommands
+from telegram.ext import CommandHandler, run_async
+from bot import dispatcher, updater, botStartTime
 
 LOGGER = logging.getLogger(__name__)
 
@@ -104,9 +109,7 @@ def get_readable_message():
                     msg += f"\n<b>🔍 Tracker :- 🧲 Seeders :</b> {download.aria_download().num_seeders}" \
                         f" & <b>🧲 Peers :</b> {download.aria_download().connections}"
                 msg += f"\nGID :  <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
-            msg += "\n\n\nf'<b>🖥️ CPU :</b> {cpuUsage}%\n ' \
-            f'<b>🎛️ RAM :</b> {memory}%\n ' \
-            f'<b>🗃️ Disk :</b> {disk}%'"
+                msg += f"\n<b>🔍 Usage :-\n🖥️ CPU : {cpuUsage}% \n🎛️ RAM : {memory}% \n🗃️ : {disk}%"
         return msg
 
 
