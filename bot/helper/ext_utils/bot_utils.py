@@ -4,6 +4,7 @@ import threading
 import time
 
 from bot import download_dict, download_dict_lock
+from bot.helper.telegram_helper.bot_commands import BotCommands
 
 LOGGER = logging.getLogger(__name__)
 
@@ -97,12 +98,12 @@ def get_readable_message():
             if download.status() != MirrorStatus.STATUS_ARCHIVING and download.status() != MirrorStatus.STATUS_EXTRACTING:
                 msg += f"\n<code>{get_progress_bar_string(download)} {download.progress()}</code>" \
                        f"\n<b>Downloaded :</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}" \
-                       f"\n<b>Speed :</b> {download.speed()}, \n<b>ETA:</b> {download.eta()} "
+                       f"\n<b>Speed :</b> {download.speed()}, \n<b>ETA :</b> {download.eta()} "
             if download.status() == MirrorStatus.STATUS_DOWNLOADING:
                 if hasattr(download, 'is_torrent'):
-                    msg += f"\n<b>Info :- 🧲 Seeders:</b> {download.aria_download().num_seeders}" \
+                    msg += f"\n<b>Info :- 🧲 Seeders :</b> {download.aria_download().num_seeders}" \
                         f" & <b>🧲 Peers :</b> {download.aria_download().connections}"
-                msg += f"\nGID:  <code>{download.gid()}</code>"
+                msg += f"\nGID : /{BotCommands.CancelMirror} <code>{download.gid()}</code>"
             msg += "\n\n"
         return msg
 
