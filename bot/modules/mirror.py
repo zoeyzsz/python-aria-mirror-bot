@@ -141,13 +141,15 @@ class MirrorListener(listeners.MirrorListeners):
                 share_url = requests.utils.requote_uri(f'{INDEX_URL}/{download_dict[self.uid].name()}')
                 if os.path.isdir(f'{DOWNLOAD_DIR}/{self.uid}/{download_dict[self.uid].name()}'):
                     share_url += '/'
-                    msg += f'<b>Link:-</b>\n<b>🔗 Google Drive :- ⚡️ <a href="{link}">Google Drive Link</a> ⚡️</b>\n<b>🔗 Shareable Link :- 💥 <a href="{share_url}">Index Link</a> 💥</b>\n\n'  
+                    msg += f'\n<b>Link:-</b>' 
+                    msg += f'<b>🔗 Shareable Link :- 💥 <a href="{share_url}">Index Link</a> 💥</b>\n'  
+                    msg += f'<b>🔗 Google Drive :- ⚡️ <a href="{link}"> Google Drive Link </a> ⚡️</b>' 
             if self.message.from_user.username:
                 uname = f"@{self.message.from_user.username}"
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-                msg += f'\n\n<b>👤 Uploader :- {uname}</b>'
+                msg += f'\n\n<b>👤 Uploader :- </b> {uname}'
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
