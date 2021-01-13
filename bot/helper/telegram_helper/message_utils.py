@@ -64,14 +64,11 @@ def delete_all_messages():
 
 def update_all_messages():
     msg = get_readable_message()
-    msg += f"<b>🖥️ CPU : {psutil.cpu_percent()}%</b>" \
-           f" <b>🗃️ DISK : {psutil.disk_usage('/').percent}%</b>" \
-           f" <b>🎛️ RAM : {psutil.virtual_memory().percent}%</b>"
     with download_dict_lock:
         for chat_id in list(status_reply_dict.keys()):
             if status_reply_dict[chat_id] and msg != status_reply_dict[chat_id].text:
                 if len(msg) == 0:
-                    msg = "Starting DL"
+                    msg = "Starting Download 📥"
                 try:
                     editMessage(msg, status_reply_dict[chat_id])
                 except Exception as e:
@@ -95,6 +92,6 @@ def sendStatusMessage(msg, bot):
                 del status_reply_dict[msg.message.chat.id]
                 pass
         if len(progress) == 0:
-            progress = "Starting DL"
+            progress = "Starting Download 📥"
         message = sendMessage(progress, bot, msg)
         status_reply_dict[msg.message.chat.id] = message
