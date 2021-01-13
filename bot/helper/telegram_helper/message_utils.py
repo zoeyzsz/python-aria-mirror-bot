@@ -64,6 +64,9 @@ def delete_all_messages():
 
 def update_all_messages():
     msg = get_readable_message()
+        msg += f"<b>🖥️ CPU : {psutil.cpu_percent()}%</b>" \
+           f" <b>🗃️ DISK : {psutil.disk_usage('/').percent}%</b>" \
+           f" <b>🎛️ RAM : {psutil.virtual_memory().percent}%</b>"
     with status_reply_dict_lock:
         for chat_id in list(status_reply_dict.keys()):
             if status_reply_dict[chat_id] and msg != status_reply_dict[chat_id].text:
@@ -78,6 +81,9 @@ def update_all_messages():
 
 def sendStatusMessage(msg, bot):
     progress = get_readable_message()
+        msg += f"<b>🖥️ CPU : {psutil.cpu_percent()}%</b>" \
+           f" <b>🗃️ DISK : {psutil.disk_usage('/').percent}%</b>" \
+           f" <b>🎛️ RAM : {psutil.virtual_memory().percent}%</b>"
     with status_reply_dict_lock:
         if msg.message.chat.id in list(status_reply_dict.keys()):
             try:
