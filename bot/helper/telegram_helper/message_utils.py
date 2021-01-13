@@ -68,7 +68,7 @@ def update_all_messages():
         for chat_id in list(status_reply_dict.keys()):
             if status_reply_dict[chat_id] and msg != status_reply_dict[chat_id].text:
                 if len(msg) == 0:
-                    msg = "Starting DL"
+                    msg = "Starting Download 📥"
                 try:
                     editMessage(msg, status_reply_dict[chat_id])
                 except Exception as e:
@@ -89,6 +89,6 @@ def sendStatusMessage(msg, bot):
                 del status_reply_dict[msg.message.chat.id]
                 pass
         if len(progress) == 0:
-            progress = "Starting DL"
+            progress = "Starting Download 📥"
         message = sendMessage(progress, bot, msg)
         status_reply_dict[msg.message.chat.id] = message
