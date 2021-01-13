@@ -1,11 +1,11 @@
 from telegram.message import Message
 from telegram.update import Update
 import time
+import psutil
 from bot import AUTO_DELETE_MESSAGE_DURATION, LOGGER, bot, \
-    status_reply_dict, status_reply_dict_lock
-from bot.helper.ext_utils.bot_utils import get_readable_message
+    status_reply_dict, status_reply_dict_lock, download_dict, download_dict_lock
+from bot.helper.ext_utils.bot_utils import get_readable_message, get_readable_file_size, MirrorStatus
 from telegram.error import TimedOut, BadRequest
-from bot import bot
 
 
 def sendMessage(text: str, bot, update: Update):
@@ -64,10 +64,10 @@ def delete_all_messages():
 
 def update_all_messages():
     msg = get_readable_message()
-        msg += f"<b>🖥️ CPU : {psutil.cpu_percent()}%</b>" \
-           f" <b>🗃️ DISK : {psutil.disk_usage('/').percent}%</b>" \
-           f" <b>🎛️ RAM : {psutil.virtual_memory().percent}%</b>"
-    with status_reply_dict_lock:
+    msg += f"<b>CPU:</b> {psutil.cpu_percent()}%" \
+           f" <b>DISK:</b> {psutil.disk_usage('/').percent}%" \
+           f" <b>RAM:</b> {psutil.virtual_memory().percent}%"
+    with download_dict_lock:
         for chat_id in list(status_reply_dict.keys()):
             if status_reply_dict[chat_id] and msg != status_reply_dict[chat_id].text:
                 if len(msg) == 0:
@@ -81,10 +81,10 @@ def update_all_messages():
 
 def sendStatusMessage(msg, bot):
     progress = get_readable_message()
-        msg += f"<b>🖥️ CPU : {psutil.cpu_percent()}%</b>" \
-           f" <b>🗃️ DISK : {psutil.disk_usage('/').percent}%</b>" \
-           f" <b>🎛️ RAM : {psutil.virtual_memory().percent}%</b>"
-    with status_reply_dict_lock:
+    progress += f"<b>CPU:</b> {psutil.cpu_percent()}%" \
+           f" <b>DISK:</b> {psutil.disk_usage('/').percent}%" \
+           f" <b>RAM:</b> {psutil.virtual_memory().percent}%"
+    with download_dict_lock:
         if msg.message.chat.id in list(status_reply_dict.keys()):
             try:
                 message = status_reply_dict[msg.message.chat.id]
