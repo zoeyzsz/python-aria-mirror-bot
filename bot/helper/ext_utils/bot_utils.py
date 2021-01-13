@@ -105,7 +105,7 @@ def get_readable_message():
                     msg += f"\n<b>🔍 Tracker :- 🧲 Seeders :- {download.aria_download().num_seeders}</b>" \
                         f" | <b>🧲 Peers :- {download.aria_download().connections}</b>"
                 msg += f"\n<b>🚫 Cancel :-</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
-                msg += f"\n<b>🖥️ CPU : {cpuUsage}%</b>" \ f"<b>🗃️ DISK : {disk}</b> \ f"\n<b>🎛️ RAM : {memory}%</b>"
+                msg += f"\n\n<b>🖥️ CPU : {cpuUsage}%</b>" \ f"<b>🗃️ DISK : {disk}</b> \ f"<b>🎛️ RAM : {memory}%</b>"
             msg += "\n\n"
         return msg
 
